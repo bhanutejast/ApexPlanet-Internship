@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive Zoo Explorer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f9;
+    }
+
+    header {
+      background-color: #2e8b57;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background-color: #eee;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #2e8b57;
+      font-weight: bold;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .animal-card {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .animal-card img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    form {
+      margin: 30px auto;
+      padding: 20px;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    form input, form button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      background-color: #2e8b57;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #todo {
+      max-width: 500px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #todo input {
+      width: 75%;
+    }
+
+    #todo button {
+      width: 20%;
+      background: #2e8b57;
+      color: white;
+      border: none;
+      padding: 10px;
+      margin-left: 5%;
+      border-radius: 5px;
+    }
+
+    #taskList li {
+      list-style: none;
+      margin: 8px 0;
+      background: #e0f8e0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to the Interactive Zoo Explorer 🐾</h1>
+  </header>
+
+  <nav>
+    <a href="#animals">Animals</a>
+    <a href="#contact">Contact</a>
+    <a href="#todo">To-Do</a>
+  </nav>
+
+  <section id="animals" class="grid-container">
+    <div class="animal-card">
+      <h2>🦁 Lion</h2>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkj8SpGNr0q_CZvJSVaeUK_9ver70GN8Y2pw&s" alt="Lion">
+      <p>King of the Jungle, loud and majestic.</p>
+    </div>
+    <div class="animal-card">
+      <h2>🐘 Elephant</h2>
+      <img src="https://ychef.files.bbci.co.uk/1280x720/p0c159gs.jpg" alt="Elephant">
+      <p>The largest land animal with a great memory.</p>
+    </div>
+    <div class="animal-card">
+      <h2>🐧 Penguin</h2>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNTBi7yf2u8D574CAQQOwk-nAnHANKEgADaw&s" alt="Penguin">
+      <p>Flightless birds that swim and waddle adorably.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <form onsubmit="return validateForm()">
+      <h2>Contact Us</h2>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+
+  <section id="todo">
+    <h2>Zoo Visit To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task" />
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+  </section>
+
+  <script>
+    // Form Validation
+    function validateForm() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+      if (name === "" || email === "") {
+        alert("Please fill out all fields.");
+        return false;
+      }
+
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+      }
+
+      alert("Form submitted successfully!");
+      return true;
+    }
+
+    // To-Do List
+    function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const task = taskInput.value.trim();
+      if (task === "") return;
+
+      const listItem = document.createElement("li");
+      listItem.textContent = task;
+      listItem.onclick = () => listItem.remove();
+      document.getElementById("taskList").appendChild(listItem);
+      taskInput.value = "";
+    }
+  </script>
+
+</body>
+</html>

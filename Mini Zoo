@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Zoo Website</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fdf6e3;
+            margin: 30px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e8b57;
+        }
+
+        .animal {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .animal img {
+            width: 300px;
+            border-radius: 8px;
+        }
+
+        .animal h2 {
+            margin-top: 0;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #246b45;
+        }
+
+        a {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: #1e90ff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Mini Zoo!</h1>
+
+    <div class="animal">
+        <h2>🦁 Lion</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkj8SpGNr0q_CZvJSVaeUK_9ver70GN8Y2pw&s" alt="Lion">
+        <p>The lion is known as the king of the jungle. It roars loudly and lives in prides.</p>
+        <button onclick="showFact('lion')">Meet the Lion</button>
+    </div>
+
+    <div class="animal">
+        <h2>🐘 Elephant</h2>
+        <img src="https://ychef.files.bbci.co.uk/1280x720/p0c159gs.jpg" alt="Elephant">
+        <p>Elephants are the largest land animals on Earth and have excellent memory.</p>
+        <button onclick="showFact('elephant')">Meet the Elephant</button>
+    </div>
+
+    <div class="animal">
+        <h2>🐧 Penguin</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNTBi7yf2u8D574CAQQOwk-nAnHANKEgADaw&s" alt="Penguin">
+        <p>Penguins are flightless birds that swim in the ocean and live in cold regions.</p>
+        <button onclick="showFact('penguin')">Meet the Penguin</button>
+    </div>
+
+    <a href="https://www.worldwildlife.org/species/directory" target="_blank">Learn more about animals</a>
+
+    <script>
+        function showFact(animal) {
+            let message = '';
+            switch(animal) {
+                case 'lion':
+                    message = "Lions can sleep up to 20 hours a day!";
+                    break;
+                case 'elephant':
+                    message = "Elephants use their trunks to breathe, smell, and grab things!";
+                    break;
+                case 'penguin':
+                    message = "Penguins have waterproof feathers to keep warm in icy waters!";
+                    break;
+                default:
+                    message = "Unknown animal!";
+            }
+            alert(message);
+        }
+    </script>
+
+</body>
+</html>

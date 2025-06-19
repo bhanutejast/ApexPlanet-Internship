@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🦁 Interactive Zoo Explorer</title>
+  <style>
+    :root {
+      --green: #2e7d32;
+      --light-gray: #f5f5f5;
+      --card-bg: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light-gray);
+      color: #333;
+    }
+    header {
+      background: var(--green);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      background: white;
+      padding: 1rem;
+      box-shadow: 0 1px 5px var(--shadow);
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--green);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background: var(--light-gray);
+      border-radius: 5px;
+    }
+    section {
+      padding: 2rem 1rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .animal-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .animal-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    .animal-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .animal-card h3, .animal-card p {
+      padding: 0.5rem 1rem;
+    }
+    .quiz-area, .fact-area, .carousel-area {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px var(--shadow);
+      margin-top: 2rem;
+      text-align: center;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    .quiz-area button, .fact-area select, .fact-area button, .carousel-container button {
+      margin-top: 1rem;
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    .quiz-area button:hover, .fact-area button:hover, .carousel-container button:hover {
+      background: #1b5e20;
+    }
+    img.fact-img {
+      max-width: 200px;
+      border-radius: 10px;
+      margin-top: 1rem;
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+    ul#factHistory {
+      text-align: left;
+      margin-top: 1rem;
+    }
+    ul#factHistory li {
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .carousel-container img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 600px) {
+      header { padding: 1.5rem; }
+      section { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🦓 Interactive Zoo Explorer 🐾</h1>
+  <p>Discover animals, test your knowledge, and learn wild facts!</p>
+</header>
+
+<nav>
+  <a href="#animals">Animals</a>
+  <a href="#quiz">Zoo Quiz</a>
+  <a href="#fact">Smart Fact</a>
+  <a href="#carousel">Gallery</a>
+</nav>
+
+<section id="animals">
+  <h2>🐘 Zoo Animals</h2>
+  <button onclick="shuffleCards()">🔀 Shuffle Animals</button>
+  <div class="grid">
+    <div class="animal-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkj8SpGNr0q_CZvJSVaeUK_9ver70GN8Y2pw&s" alt="Lion">
+      <h3>🦁 Lion</h3>
+      <p>The mighty king of the jungle known for its roar.</p>
+    </div>
+    <div class="animal-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNTBi7yf2u8D574CAQQOwk-nAnHANKEgADaw&s" alt="Penguin">
+      <h3>🐧 Penguin</h3>
+      <p>Flightless and adorable, masters of the ice.</p>
+    </div>
+    <div class="animal-card">
+      <img src="https://www.balisafarimarinepark.com/wp-content/uploads/2019/11/giraffes-in-Bali-1200x900-cropped.jpg" alt="Giraffe">
+      <h3>🦒 Giraffe</h3>
+      <p>The tallest land animal with a graceful long neck.</p>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" class="quiz-area">
+  <h2>🧠 Zoo Quiz</h2>
+  <p id="quizQ">Loading question...</p>
+  <div id="quizOptions"></div>
+  <p id="quizResult"></p>
+  <p id="scoreText">🎯 Score: 0</p>
+  <button onclick="nextQuestion()">Next Question</button>
+</section>
+
+<section id="fact" class="fact-area">
+  <h2>🌿 Smart Zoo Fact</h2>
+  <select id="animalSelect">
+    <option value="dog">Dog</option>
+    <option value="fox">Fox</option>
+    <option value="panda">Panda</option>
+    <option value="kangaroo">Kangaroo</option>
+    <option value="koala">Koala</option>
+    <option value="bird">Bird</option>
+  </select>
+  <p id="factText">Select an animal and click the button to see a fact.</p>
+  <img id="factImg" class="fact-img" src="" alt="" />
+  <button onclick="getZooFact()">Show Fact</button>
+  <h3>🧾 Recent Facts:</h3>
+  <ul id="factHistory"></ul>
+</section>
+
+<section id="carousel" class="carousel-area">
+  <h2>📸 Zoo Image Carousel</h2>
+  <div class="carousel-container">
+    <button onclick="prevSlide()">⬅️</button>
+    <img id="carouselImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkj8SpGNr0q_CZvJSVaeUK_9ver70GN8Y2pw&s" alt="Zoo Animal" />
+    <button onclick="nextSlide()">➡️</button>
+  </div>
+</section>
+
+<script>
+  const quizData = [
+    { q: "Which animal has a long neck?", options: ["Elephant","Giraffe","Zebra","Lion"], answer: "Giraffe" },
+    { q: "Which animal is known for black and white stripes?", options: ["Zebra","Tiger","Panda","Skunk"], answer: "Zebra" },
+    { q: "Which bird cannot fly but swims?", options: ["Eagle","Penguin","Swan","Ostrich"], answer: "Penguin" }
+  ];
+  let current = 0;
+  let score = localStorage.getItem("zooScore") ? parseInt(localStorage.getItem("zooScore")) : 0;
+  document.getElementById("scoreText").textContent = `🎯 Score: ${score}`;
+
+  function loadQuiz() {
+    const q = quizData[current];
+    document.getElementById('quizQ').textContent = q.q;
+    const div = document.getElementById('quizOptions'); div.innerHTML = '';
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.textContent = opt;
+      btn.onclick = () => {
+        const isCorrect = opt === q.answer;
+        document.getElementById('quizResult').textContent = isCorrect ? "✅ Correct!" : `❌ Wrong! It was ${q.answer}.`;
+        if (isCorrect) {
+          score++;
+          localStorage.setItem("zooScore", score);
+          document.getElementById("scoreText").textContent = `🎯 Score: ${score}`;
+        }
+      };
+      div.appendChild(btn);
+    });
+    document.getElementById('quizResult').textContent = '';
+  }
+  function nextQuestion() {
+    current = (current + 1) % quizData.length;
+    loadQuiz();
+  }
+  loadQuiz();
+
+  async function getZooFact() {
+    const animal = document.getElementById('animalSelect').value;
+    try {
+      const res = await fetch(`https://some-random-api.com/animal/${animal}`);
+      const d = await res.json();
+      const fact = d.fact || "Oops, no fact available.";
+      document.getElementById('factText').textContent = fact;
+      if (d.image) {
+        document.getElementById('factImg').src = d.image;
+        document.getElementById('factImg').alt = animal;
+      }
+      updateHistory(fact);
+    } catch (err) {
+      document.getElementById('factText').textContent = "⚠️ Unable to load fact.";
+      document.getElementById('factImg').src = '';
+    }
+  }
+
+  let history = JSON.parse(localStorage.getItem("factHistory") || "[]");
+  function updateHistory(newFact) {
+    history.unshift(newFact);
+    if (history.length > 3) history.pop();
+    localStorage.setItem("factHistory", JSON.stringify(history));
+    renderHistory();
+  }
+  function renderHistory() {
+    const ul = document.getElementById("factHistory");
+    ul.innerHTML = "";
+    history.forEach(f => {
+      const li = document.createElement("li");
+      li.textContent = "🦴 " + f;
+      ul.appendChild(li);
+    });
+  }
+  renderHistory();
+
+  function shuffleCards() {
+    const container = document.querySelector(".grid");
+    const cards = Array.from(container.children);
+    cards.sort(() => 0.5 - Math.random());
+    container.innerHTML = "";
+    cards.forEach(c => container.appendChild(c));
+  }
+
+  const carouselImages = [
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkj8SpGNr0q_CZvJSVaeUK_9ver70GN8Y2pw&s", // Lion
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNTBi7yf2u8D574CAQQOwk-nAnHANKEgADaw&s", // Penguin
+    "https://www.balisafarimarinepark.com/wp-content/uploads/2019/11/giraffes-in-Bali-1200x900-cropped.jpg" // Giraffe
+  ];
+  let currentSlide = 0;
+  function showSlide(index) {
+    const img = document.getElementById("carouselImage");
+    currentSlide = (index + carouselImages.length) % carouselImages.length;
+    img.src = carouselImages[currentSlide];
+  }
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+</script>
+</body>
+</html>
